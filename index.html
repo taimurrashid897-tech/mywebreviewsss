@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Web Work</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+  :root{
+    --bg:#f5f6f4; --surface:#ffffff; --line:#dfe3df; --fg:#141a17; --muted:#5a655f;
+    --accent:#0b8a5c; --accent-fg:#ffffff; --link:#2c4fd0; --star:#d98a00; --danger:#b4332a;
+    --display:'Space Grotesk','Segoe UI',system-ui,sans-serif;
+    --body:'DM Sans','Segoe UI',system-ui,sans-serif;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0e1311; --surface:#151c19; --line:#25302b; --fg:#e9efeb; --muted:#93a19a;
+      --accent:#4fd69b; --accent-fg:#05150e; --link:#8fa6ff; --star:#f2b53a; --danger:#ff8a80;
+      color-scheme:dark;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;padding:0 16px}
+  .wrap{max-width:1040px;margin:0 auto}
+  header{padding:56px 0 24px}
+  .badge{display:inline-block;font-size:13px;color:var(--accent);border:1px solid var(--line);padding:3px 12px;border-radius:99px;background:var(--surface)}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,6.4vw,56px);line-height:1.05;letter-spacing:-0.02em;margin:18px 0 12px;text-wrap:balance}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lead{color:var(--muted);max-width:56ch;margin:0 0 24px}
+  .nav{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{display:inline-block;border:0;cursor:pointer;font:600 15px var(--body);background:var(--accent);color:var(--accent-fg);padding:10px 20px;border-radius:8px;text-decoration:none}
+  .btn:hover{filter:brightness(1.07)}
+  .btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+  .btn:focus-visible,input:focus-visible,textarea:focus-visible,.star:focus-visible,a:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+  .btn[disabled]{opacity:.55;cursor:not-allowed}
+  .stats{display:flex;gap:28px;flex-wrap:wrap;margin-top:32px;padding-top:20px;border-top:1px solid var(--line)}
+  .stat b{display:block;font:700 28px var(--display);font-variant-numeric:tabular-nums}
+  .stat small{color:var(--muted);font-size:13px}
+  section{padding:36px 0}
+  h2{font-family:var(--display);font-size:26px;letter-spacing:-0.01em;margin:0 0 20px}
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+  .card h3{margin:0;font:600 19px var(--display)}
+  .card p{margin:0;color:var(--muted);font-size:15px}
+  .chips{display:flex;gap:6px;flex-wrap:wrap}
+  .chips span{font-size:12px;border:1px solid var(--line);padding:2px 10px;border-radius:99px;color:var(--muted)}
+  .visit{margin-top:auto;padding-top:6px;color:var(--link);font-weight:600;text-decoration:none}
+  .visit:hover{text-decoration:underline}
+  .rv{display:grid;gap:20px;grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:start}
+  @media (max-width:760px){.rv{grid-template-columns:minmax(0,1fr)}}
+  form.card{gap:14px}
+  label{font-size:14px;font-weight:600;display:block;margin-bottom:4px}
+  input[type=text],textarea{width:100%;font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+  textarea{min-height:110px;resize:vertical}
+  .stars{display:flex;gap:2px}
+  .star{background:none;border:0;cursor:pointer;font-size:30px;line-height:1;padding:2px 4px;color:var(--line)}
+  .star.on{color:var(--star)}
+  .hint{font-size:13px;color:var(--muted)}
+  .msg{font-size:14px;min-height:20px}
+  .msg.err{color:var(--danger)}
+  .msg.ok{color:var(--accent)}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .list{display:flex;flex-direction:column;gap:12px;min-width:0}
+  .rev{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
+  .rev .top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+  .rev .nm{font-weight:600;overflow-wrap:anywhere}
+  .rev .st{color:var(--star);letter-spacing:2px}
+  .rev .dt{font-size:12px;color:var(--muted)}
+  .rev p{margin:6px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
+  .empty{border:1px dashed var(--line);border-radius:12px;padding:28px 20px;color:var(--muted);text-align:center}
+  footer{border-top:1px solid var(--line);padding:24px 0 48px;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">Taking new website projects</span>
+    <h1>I build <em>websites</em> that people actually use.</h1>
+    <p class="lead">Two live sites below, and a review wall where anyone who has used my work can leave a rating and read what others said.</p>
+    <div class="nav">
+      <a class="btn" href="#work">See my work</a>
+      <a class="btn ghost" href="#reviews">Read or write a review</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>2</b><small>Websites made</small></div>
+      <div class="stat"><b id="s-rev">0</b><small>Reviews</small></div>
+      <div class="stat"><b id="s-avg">–</b><small>Average rating</small></div>
+    </div>
+  </header>
+
+  <section id="work">
+    <h2>Websites I've made</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Pillars of Fortune SMP</h3>
+        <p>Status website for a Minecraft SMP. Shows the server IP and ports with copy buttons, players online, the four game types and the Discord invite.</p>
+        <div class="chips"><span>Minecraft</span><span>Live status</span><span>Community</span></div>
+        <a class="visit" href="https://aspect563.github.io/pillars-of-fortune/" target="_blank" rel="noopener">Visit website →</a>
+      </div>
+      <div class="card">
+        <h3>just4le._ Clothing Shop</h3>
+        <p>Online store for a drop-shoulder tee and acid wash brand. Product sections, size chart in inches, an order form with Cash on delivery, bKash and Nagad, and an admin area for adding products.</p>
+        <div class="chips"><span>Online shop</span><span>Orders</span><span>Admin panel</span></div>
+        <a class="visit" href="https://just4le-gtvu.vercel.app/" target="_blank" rel="noopener">Visit website →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <h2>Reviews</h2>
+    <div class="rv">
+      <form class="card" id="form" autocomplete="off">
+        <h3>Leave a review</h3>
+        <div>
+          <label for="f-name">Your name</label>
+          <input type="text" id="f-name" maxlength="40" placeholder="e.g. Rafi">
+        </div>
+        <div>
+          <label id="f-rate-l">Rating</label>
+          <div class="stars" id="f-stars" role="group" aria-labelledby="f-rate-l"></div>
+        </div>
+        <div>
+          <label for="f-text">Your review</label>
+          <textarea id="f-text" maxlength="600" placeholder="What was it like working together?"></textarea>
+        </div>
+        <div class="hp" aria-hidden="true"><label for="f-site">Leave this empty</label><input type="text" id="f-site" tabindex="-1" autocomplete="off"></div>
+        <div><button class="btn" type="submit" id="f-send">Post review</button></div>
+        <div class="msg" id="f-msg" role="status"></div>
+        <div class="hint">No account needed. Reviews appear right away.</div>
+      </form>
+      <div class="list" id="list"><div class="empty">Loading reviews…</div></div>
+    </div>
+  </section>
+
+  <footer>© <span id="yr"></span> · My Web Work</footer>
+</div>
+
+<script>
+/* ===== PASTE YOUR SUPABASE DETAILS HERE (see setup.sql and the steps I gave you) ===== */
+const SUPABASE_URL = "https://bpgpexnatvzpanedvbll.supabase.co/rest/v1/";
+const SUPABASE_ANON_KEY = "sb_publishable_BKG1QnHDxguB_dYbquRivQ_ZUGhfTlj";
+/* ======================================================================================= */
+
+const $ = id => document.getElementById(id);
+$('yr').textContent = new Date().getFullYear();
+const configured = !SUPABASE_URL.includes('YOUR-PROJECT') && !SUPABASE_ANON_KEY.includes('YOUR-ANON');
+const API = SUPABASE_URL + '/rest/v1/reviews';
+const HEAD = { apikey: SUPABASE_ANON_KEY };
+if (SUPABASE_ANON_KEY.startsWith('eyJ')) HEAD.Authorization = 'Bearer ' + SUPABASE_ANON_KEY; // legacy JWT keys only
+
+let rating = 0;
+const starsBox = $('f-stars');
+for (let n = 1; n <= 5; n++) {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'star'; b.textContent = '★';
+  b.setAttribute('aria-label', n + ' star' + (n > 1 ? 's' : ''));
+  b.addEventListener('click', () => setRating(n));
+  starsBox.appendChild(b);
+}
+function setRating(n){
+  rating = n;
+  [...starsBox.children].forEach((b, i) => { b.classList.toggle('on', i < n); b.setAttribute('aria-pressed', String(i < n)); });
+}
+function msg(t, k){ const m = $('f-msg'); m.textContent = t || ''; m.className = 'msg' + (k ? ' ' + k : ''); }
+function note(text){
+  const l = $('list'); l.textContent = '';
+  const e = document.createElement('div'); e.className = 'empty'; e.textContent = text; l.appendChild(e);
+}
+
+function render(rows){
+  $('s-rev').textContent = rows.length;
+  $('s-avg').textContent = rows.length ? (rows.reduce((a, r) => a + r.rating, 0) / rows.length).toFixed(1) : '–';
+  if (!rows.length) { note('No reviews yet. Be the first to write one.'); return; }
+  const l = $('list'); l.textContent = '';
+  rows.forEach(r => {
+    const c = document.createElement('div'); c.className = 'rev';
+    const top = document.createElement('div'); top.className = 'top';
+    const nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = r.name;
+    const st = document.createElement('span'); st.className = 'st';
+    st.textContent = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+    st.setAttribute('aria-label', r.rating + ' out of 5');
+    top.append(nm, st);
+    const p = document.createElement('p'); p.textContent = r.text;
+    const d = document.createElement('div'); d.className = 'dt';
+    d.textContent = new Date(r.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    c.append(top, p, d); l.appendChild(c);
+  });
+}
+
+async function load(){
+  if (!configured) { note('Reviews are not connected yet. Add your Supabase details at the top of the script.'); return; }
+  try {
+    const res = await fetch(API + '?select=id,name,rating,text,created_at&order=created_at.desc&limit=200', { headers: HEAD });
+    if (!res.ok) throw new Error(res.status);
+    const rows = await res.json();
+    render(rows.map(r => ({ ...r, rating: Math.min(5, Math.max(1, Number(r.rating) || 5)) })));
+  } catch (e) { note('Reviews could not be loaded right now.'); }
+}
+
+$('form').addEventListener('submit', async ev => {
+  ev.preventDefault();
+  if ($('f-site').value) return;                       // spam trap
+  if (!configured) { msg('Reviews are not connected yet.', 'err'); return; }
+  const name = $('f-name').value.trim(), text = $('f-text').value.trim();
+  if (!name) return msg('Enter your name.', 'err');
+  if (!rating) return msg('Pick a star rating.', 'err');
+  if (!text) return msg('Write a few words about your experience.', 'err');
+  let last = 0; try { last = Number(localStorage.getItem('lastReview')) || 0; } catch (e) {}
+  if (Date.now() - last < 60000) return msg('Please wait a minute before posting again.', 'err');
+  $('f-send').disabled = true; msg('Posting…');
+  try {
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: { ...HEAD, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+      body: JSON.stringify({ name, rating, text })
+    });
+    if (!res.ok) throw new Error(res.status);
+    try { localStorage.setItem('lastReview', String(Date.now())); } catch (e) {}
+    $('f-name').value = ''; $('f-text').value = ''; setRating(0);
+    msg('Thanks, your review is live.', 'ok');
+    load();
+  } catch (e) { msg('Could not post your review. Try again in a moment.', 'err'); }
+  $('f-send').disabled = false;
+});
+
+load();
+setInterval(load, 30000);
+</script>
+</body>
+</html>
